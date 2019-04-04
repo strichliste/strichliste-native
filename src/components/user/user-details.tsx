@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { User, getUser } from "../../store/reducers";
 import { store } from "../../store";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import { UserName } from "../user";
 import { Loader } from "../ui/base";
 import { getTheme } from "../ui/theme";
@@ -34,7 +34,7 @@ export const UserDetails: React.FC<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <View style={{ margin: theme.base }}>
+    <ScrollView style={{ margin: theme.base }}>
       <View
         style={{
           margin: theme.base * 2,
@@ -46,6 +46,6 @@ export const UserDetails: React.FC<{ id: string }> = ({ id }) => {
         <Currency size={theme.base * 1.5} value={user.balance} />
       </View>
       <Payment userId={user.id} />
-    </View>
+    </ScrollView>
   );
 };

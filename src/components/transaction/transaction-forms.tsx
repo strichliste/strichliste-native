@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, TextInput } from "react-native";
 
 import { Card } from "../ui/card";
 import { store } from "../../store";
 import { startCreatingTransaction } from "../../store/reducers";
-import { Button } from "../ui/form";
+import { Button, FAB } from "../ui/form";
 import { useTransactionValidator } from "./validator";
 import { formatCurrency } from "../ui/text";
 
@@ -30,7 +30,7 @@ export function Payment(props: Props): JSX.Element {
         />
       )}
       <View>
-        <Text>Test</Text>
+        <CreateCustomTransactionForm userId={props.userId} />
       </View>
       {payment.dispense.enabled && (
         <PaymentButtonList
@@ -106,3 +106,69 @@ export function TransactionButton(props: TransactionButtonProps): JSX.Element {
     />
   );
 }
+
+interface CreateCustomTransactionFormProps {
+  userId: string;
+  transactionCreated?(): void;
+}
+
+export const CreateCustomTransactionForm = (
+  props: CreateCustomTransactionFormProps
+) => {
+  const { userId, transactionCreated } = props;
+
+  const [value, setValue] = React.useState(0);
+  const depositIsValid = useTransactionValidator(value, userId, true);
+  const dispenseIsValid = useTransactionValidator(value, userId, false);
+
+  const submit = async (isDeposit: boolean) => {
+    const multiplier = isDeposit ? 1 : -1;
+    const amount = value * multiplier;
+
+    const result = await startCreatingTransaction(store.dispatch, userId, {
+      amount
+    });
+
+    if (transactionCreated) {
+      transactionCreated();
+    }
+
+    if (result) {
+      setValue(0);
+    }
+  };
+
+  return (
+    <View
+      style={{
+        marginTop: 16,
+        marginBottom: 16,
+        flexDirection: "row",
+        justifyContent: "space-between"
+      }}
+    >
+      <FAB
+        icon="minus"
+        isRed
+        onPress={() => submit(false)}
+        isDisabled={!dispenseIsValid}
+      />
+
+      <TextInput
+        style={[{ minWidth: 100, flex: 1, marginLeft: 16, marginRight: 16 }]}
+        value={value.toString()}
+        placeholder="CUSTOM AMOUNT"
+        keyboardType="numeric"
+        onChangeText={name => setValue(Number(name))}
+        onSubmitEditing={() => submit}
+      />
+
+      <FAB
+        icon="plus"
+        isGreen
+        onPress={() => submit(true)}
+        isDisabled={!depositIsValid}
+      />
+    </View>
+  );
+};

@@ -103,11 +103,11 @@ export const FAB = ({
       rippleContainerBorderRadius={100}
       style={[
         buttonStyles.fab,
-        isDisabled ? buttonStyles.disabled : undefined,
         isPrimary ? buttonStyles.primary : undefined,
         isGreen ? buttonStyles.greenBG : undefined,
         isRed ? buttonStyles.redBG : undefined,
-        isHighlight ? buttonStyles.highlightBG : undefined
+        isHighlight ? buttonStyles.highlightBG : undefined,
+        isDisabled ? buttonStyles.disabled : undefined
       ]}
     >
       <Icon
