@@ -51,7 +51,10 @@ const UserDetailsView: React.FC<NavigationScreenProps> = ({ navigation }) => {
 
   return (
     <BaseWrapper>
-      <UserDetails id={id} />
+      <UserDetails
+        gotoUser={user => navigation.replace("UserDetails", { id: user.id })}
+        id={id}
+      />
     </BaseWrapper>
   );
 };
