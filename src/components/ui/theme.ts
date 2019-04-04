@@ -1,6 +1,7 @@
 const baseTheme = {
   base: 16,
-  borderRadius: 4
+  borderRadius: 4,
+  buttonDisabled: "#bababa"
 };
 
 export const lightTheme = {
@@ -20,17 +21,17 @@ export const lightTheme = {
   redText: "#D16069",
   text: "#343434",
   textSubtile: "#bababa",
+  headerBackground: "#fff",
   buttonCancelFont: "#ffedf0",
   buttonCancelBackground: "#E86C76",
-  buttonAcceptFont: "#e8eaeb",
-  buttonAcceptBackground: "#213440",
+  buttonHighlightFont: "#e8eaeb",
+  buttonHighlightBackground: "#213440",
   buttonGreenBackground: "#cbf5d7",
   buttonGreenFont: "#00cc1d",
   buttonRedBackground: "#ffdce0",
   buttonRedFont: "#f54963",
   buttonDefaultBackground: "#fff",
-  buttonDefaultFont: "#58697d",
-  buttonDisabled: "#bababa"
+  buttonDefaultFont: "#58697d"
 };
 
 export const darkTheme = {
@@ -51,11 +52,11 @@ export const darkTheme = {
   redText: "#FFBAC2",
   text: "#fdfdfd",
   textSubtile: "#59687c",
-  themedWhite: "#1d2832",
+  headerBackground: "#1d2832",
   buttonCancelFont: "#ffedf0",
   buttonCancelBackground: "#f54963",
-  buttonAcceptFont: "#353535",
-  buttonAcceptBackground: "#f2f3f2",
+  buttonHighlightFont: "#353535",
+  buttonHighlightBackground: "#f2f3f2",
   buttonGreenBackground: "#155949",
   buttonGreenFont: "#00cc1d",
   buttonRedBackground: "#544052",
