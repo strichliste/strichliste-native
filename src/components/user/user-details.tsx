@@ -6,6 +6,7 @@ import { UserName } from "../user";
 import { Loader } from "../ui/base";
 import { getTheme } from "../ui/theme";
 import { Currency } from "../ui/text";
+import { Payment } from "../transaction/transaction-forms";
 
 const theme = getTheme();
 
@@ -34,10 +35,17 @@ export const UserDetails: React.FC<{ id: string }> = ({ id }) => {
 
   return (
     <View style={{ margin: theme.base }}>
-      <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
-        <UserName name={user.name} />
-        <Currency value={user.balance} />
+      <View
+        style={{
+          margin: theme.base * 2,
+          justifyContent: "space-evenly",
+          flexDirection: "row"
+        }}
+      >
+        <UserName size={theme.base * 1.5} name={user.name} />
+        <Currency size={theme.base * 1.5} value={user.balance} />
       </View>
+      <Payment userId={user.id} />
     </View>
   );
 };

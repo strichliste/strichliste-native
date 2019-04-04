@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View } from "react-native";
 import {
   createStackNavigator,
   createAppContainer,
@@ -10,17 +10,12 @@ import { getTheme } from "./ui/theme";
 import { UserDetails } from "./user/user-details";
 import { FAB } from "./ui/form";
 import { AddUserForm } from "./user/add-user-form";
+import { BaseWrapper } from "./ui/base";
 
 const theme = getTheme();
 
 const Users: React.FC<NavigationScreenProps> = props => (
-  <View
-    style={{
-      flex: 1,
-      flexDirection: "column",
-      backgroundColor: theme.mainBackground
-    }}
-  >
+  <BaseWrapper>
     <UserList
       onSelect={user => {
         props.navigation.navigate("UserDetails", { id: user.id });
@@ -34,17 +29,17 @@ const Users: React.FC<NavigationScreenProps> = props => (
         onPress={() => props.navigation.navigate("AddUser")}
       />
     </View>
-  </View>
+  </BaseWrapper>
 );
 
 const AddUser: React.FC<NavigationScreenProps> = ({ navigation }) => (
-  <View>
+  <BaseWrapper>
     <AddUserForm
       userId="12"
       onSave={user => navigation.replace("UserDetails", { id: user.id })}
       onCancel={() => navigation.navigate("Users")}
     />
-  </View>
+  </BaseWrapper>
 );
 //@ts-ignore
 AddUser.navigationOptions = {
@@ -55,28 +50,17 @@ const UserDetailsView: React.FC<NavigationScreenProps> = ({ navigation }) => {
   const id = navigation.getParam("id");
 
   return (
-    <View>
+    <BaseWrapper>
       <UserDetails id={id} />
-    </View>
+    </BaseWrapper>
   );
 };
-//@ts-ignore
-UserDetailsView.navigationOptions = {
-  title: "Add new User"
-};
-
-const Articles = () => (
-  <View>
-    <Text>Articles</Text>
-  </View>
-);
 
 const TabNavigator = createStackNavigator(
   {
     Users: { screen: Users },
     AddUser: { screen: AddUser },
-    UserDetails: { screen: UserDetailsView },
-    Articles: { screen: Articles }
+    UserDetails: { screen: UserDetailsView }
   },
   {
     defaultNavigationOptions: {

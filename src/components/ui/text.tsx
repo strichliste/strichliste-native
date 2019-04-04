@@ -9,9 +9,17 @@ export const formatCurrency = (value: number) => {
   return `${value / 100} €`;
 };
 
-export const Currency: React.FC<{ value: number }> = ({ value }) => {
+export const Currency: React.FC<{ value: number; size?: number }> = ({
+  value,
+  size
+}) => {
   return (
-    <Text style={{ color: value < 0 ? theme.redText : theme.greenText }}>
+    <Text
+      style={{
+        fontSize: size,
+        color: value < 0 ? theme.redText : theme.greenText
+      }}
+    >
       {formatCurrency(value)}
     </Text>
   );

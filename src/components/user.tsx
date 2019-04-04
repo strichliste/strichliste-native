@@ -98,8 +98,15 @@ export const Users: React.FC<{ onSelect(user: User): void }> = ({
   );
 };
 
-export const UserName: React.FC<{ name: string }> = ({ name }) => (
-  <Text style={{ fontWeight: "bold" }} numberOfLines={1} ellipsizeMode="tail">
+export const UserName: React.FC<{ name: string; size?: number }> = ({
+  name,
+  size
+}) => (
+  <Text
+    style={{ fontWeight: "bold", fontSize: size }}
+    numberOfLines={1}
+    ellipsizeMode="tail"
+  >
     {name}
   </Text>
 );
