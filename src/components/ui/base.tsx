@@ -4,6 +4,18 @@ import { getTheme } from "./theme";
 
 const theme = getTheme();
 
+export const FabBottomRight: React.FC = props => (
+  <View style={{ position: "absolute", bottom: 16, right: 16 }}>
+    {props.children}
+  </View>
+);
+
+export const FabBottomLeft: React.FC = props => (
+  <View style={{ position: "absolute", bottom: 16, left: 16 }}>
+    {props.children}
+  </View>
+);
+
 export const Loader = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -18,6 +30,19 @@ export const BaseWrapper: React.FC = props => (
       flex: 1,
       flexDirection: "column",
       backgroundColor: theme.mainBackground
+    }}
+  >
+    {props.children}
+  </View>
+);
+
+export const ListItem: React.FC = props => (
+  <View
+    style={{
+      borderBottomColor: theme.border,
+      borderBottomWidth: 1,
+      paddingBottom: 8,
+      paddingTop: 8
     }}
   >
     {props.children}

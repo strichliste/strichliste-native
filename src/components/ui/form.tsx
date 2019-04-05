@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Ripple from "react-native-material-ripple";
 
 import { getTheme } from "./theme";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import { TextStyle } from "./text";
+import { TextInput } from "react-native-gesture-handler";
+import { ListItem } from "./base";
 
 const theme = getTheme();
 
@@ -165,4 +167,64 @@ export const FormFooter: React.FC<{
       <FAB onPress={props.onCancel} isRed icon="times" />
     </View>
   );
+};
+
+type ItemToString<T> = (item: T) => string;
+interface FilterListProps<T> {
+  items: T[];
+  getKey: ItemToString<T>;
+  getValue: ItemToString<T>;
+  renderItem: (item: T) => React.ReactNode;
+  getResults: (items: T[], query: string, getValue: ItemToString<T>) => T[];
+  onSelect(item: T): void;
+}
+
+export function FilterList<T>({
+  items,
+  getKey,
+  getValue,
+  renderItem,
+  getResults,
+  onSelect
+}: FilterListProps<T>) {
+  const [query, setQuery] = useState("");
+
+  return (
+    <View style={{ margin: theme.base }}>
+      <TextInput
+        style={InputStyle.input}
+        onChangeText={query => setQuery(query)}
+        value={query}
+      />
+      <FlatList
+        data={getResults(items, query, getValue)}
+        keyExtractor={getKey}
+        renderItem={({ item }) => (
+          <Ripple onPress={() => onSelect(item)}>
+            <ListItem>{renderItem(item)}</ListItem>
+          </Ripple>
+        )}
+      />
+    </View>
+  );
+}
+
+FilterList.defaultProps = {
+  items: [],
+  getKey: (item: { id: any }) => item.id.toString(),
+  getValue: (item: { name: string }) => item.name,
+  renderItem: (item: { name: React.ReactNode }) => <Text>{item.name}</Text>,
+  getResults: (
+    items: any[],
+    query: string,
+    getValue: (item: any) => string
+  ) => {
+    return query
+      ? items.filter(item =>
+          getValue(item)
+            .toLowerCase()
+            .includes(query.toLowerCase())
+        )
+      : items;
+  }
 };

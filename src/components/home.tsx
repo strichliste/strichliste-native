@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import {
   createStackNavigator,
@@ -10,27 +10,47 @@ import { getTheme } from "./ui/theme";
 import { UserDetails } from "./user/user-details";
 import { FAB } from "./ui/form";
 import { AddUserForm } from "./user/add-user-form";
-import { BaseWrapper } from "./ui/base";
+import { BaseWrapper, FabBottomRight, FabBottomLeft } from "./ui/base";
+import { SelectUserModal } from "./user/select-user-modal";
 
 const theme = getTheme();
 
-const Users: React.FC<NavigationScreenProps> = props => (
-  <BaseWrapper>
-    <UserList
-      onSelect={user => {
-        props.navigation.navigate("UserDetails", { id: user.id });
-      }}
-    />
-    <View style={{ position: "absolute", bottom: 16, right: 16 }}>
-      <FAB
-        elevation={3}
-        isHighlight
-        icon="plus"
-        onPress={() => props.navigation.navigate("AddUser")}
+const Users: React.FC<NavigationScreenProps> = props => {
+  const [selectUserModal, setSelectUserModal] = useState(false);
+  return (
+    <BaseWrapper>
+      <UserList
+        onSelect={user => {
+          props.navigation.navigate("UserDetails", { id: user.id });
+        }}
       />
-    </View>
-  </BaseWrapper>
-);
+      <FabBottomRight>
+        <FAB
+          elevation={3}
+          isHighlight
+          icon="plus"
+          onPress={() => props.navigation.navigate("AddUser")}
+        />
+      </FabBottomRight>
+
+      <SelectUserModal
+        setIsVisible={setSelectUserModal}
+        isVisible={selectUserModal}
+        onSelect={user => {
+          props.navigation.navigate("UserDetails", { id: user.id });
+        }}
+      />
+      <FabBottomLeft>
+        <FAB
+          elevation={3}
+          isPrimary
+          icon="search"
+          onPress={() => setSelectUserModal(true)}
+        />
+      </FabBottomLeft>
+    </BaseWrapper>
+  );
+};
 
 const AddUser: React.FC<NavigationScreenProps> = ({ navigation }) => (
   <BaseWrapper>

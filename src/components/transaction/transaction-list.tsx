@@ -6,6 +6,7 @@ import { User, Article, getTransaction } from "../../store/reducers";
 import { store } from "../../store";
 import { Currency } from "../ui/text";
 import { getTheme } from "../ui/theme";
+import { ListItem } from "../ui/base";
 
 const theme = getTheme();
 
@@ -59,14 +60,7 @@ export function TransactionListItem({
   }
 
   return (
-    <View
-      style={{
-        borderBottomColor: theme.border,
-        borderBottomWidth: 1,
-        paddingBottom: 8,
-        paddingTop: 8
-      }}
-    >
+    <ListItem>
       <View
         style={{
           flexDirection: "row",
@@ -85,6 +79,6 @@ export function TransactionListItem({
         comment={transaction.comment}
         user={transaction.sender || transaction.recipient}
       />
-    </View>
+    </ListItem>
   );
 }
