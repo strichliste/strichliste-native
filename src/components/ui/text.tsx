@@ -17,7 +17,7 @@ export const Currency: React.FC<{ value: number; size?: number }> = ({
     <Text
       style={{
         fontSize: size,
-        color: value < 0 ? theme.redText : theme.greenText
+        color: value < 0 ? theme.buttonRedFont : theme.buttonGreenFont
       }}
     >
       {formatCurrency(value)}
@@ -29,5 +29,5 @@ export const TextStyle = StyleSheet.create({
   base: {
     color: theme.text
   },
-  red: { color: theme.redText }
+  red: { color: theme.buttonRedFont }
 });
