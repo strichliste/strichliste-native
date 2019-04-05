@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "react-native";
+import { Modal, View } from "react-native";
 import { FilterList, FAB } from "../ui/form";
 import { FabBottomRight } from "../ui/base";
 import { store } from "../../store";
@@ -17,13 +17,15 @@ export const SelectUserModal: React.FC<{
       visible={isVisible}
       onRequestClose={() => setIsVisible(false)}
     >
-      <FilterList
-        items={users}
-        onSelect={item => {
-          onSelect(item);
-          setIsVisible(false);
-        }}
-      />
+      <View style={{ marginTop: 32 }}>
+        <FilterList
+          items={users}
+          onSelect={item => {
+            onSelect(item);
+            setIsVisible(false);
+          }}
+        />
+      </View>
       <FabBottomRight>
         <FAB
           elevation={2}
