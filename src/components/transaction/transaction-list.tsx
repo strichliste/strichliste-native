@@ -2,11 +2,17 @@ import React from "react";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { User, Article, getTransaction } from "../../store/reducers";
+import {
+  User,
+  Article,
+  getTransaction,
+  startDeletingTransaction
+} from "../../store/reducers";
 import { store } from "../../store";
 import { Currency } from "../ui/text";
 import { getTheme } from "../ui/theme";
 import { ListItem, Text } from "../ui/base";
+import { Button } from "../ui/form";
 
 const theme = getTheme();
 
@@ -68,9 +74,18 @@ export function TransactionListItem({
         }}
       >
         <Currency value={transaction.amount} />
-        <Text numberOfLines={1} ellipsizeMode="tail">
-          {transaction.created}
-        </Text>
+        {transaction.isDeleted && <Text>is deleted</Text>}
+
+        {transaction.isDeletable ? (
+          <TransactionUndoButton
+            transactionId={transaction.id}
+            userId={transaction.user.id}
+          />
+        ) : (
+          <Text numberOfLines={1} ellipsizeMode="tail">
+            {transaction.created}
+          </Text>
+        )}
       </View>
       <ListItemDescription
         gotoUser={gotoUser}
@@ -82,3 +97,27 @@ export function TransactionListItem({
     </ListItem>
   );
 }
+
+interface TransactionUndoButtonProps {
+  userId?: string;
+  transactionId: number;
+  onSuccess?(): void;
+}
+
+const TransactionUndoButton = (props: TransactionUndoButtonProps) => {
+  return (
+    <Button
+      onPress={() => {
+        if (typeof props.onSuccess === "function") {
+          props.onSuccess();
+        }
+        startDeletingTransaction(
+          store.dispatch,
+          props.userId || "",
+          props.transactionId
+        );
+      }}
+      title="UNDO"
+    />
+  );
+};
