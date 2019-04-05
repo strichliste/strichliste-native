@@ -31,7 +31,6 @@ export const AddUserForm = (props: AddUserProps) => {
     <View style={{ margin: 16 }}>
       <FieldSet label="Your name" message={nameIsValid}>
         <TextInput
-          autoFocus
           placeholder="your name*"
           style={InputStyle.input}
           onChangeText={name => setName(name)}
@@ -72,7 +71,6 @@ export const EditUserForm = (props: EditUserProps) => {
     <View style={{ margin: 16 }}>
       <FieldSet label="Your name">
         <TextInput
-          autoFocus
           placeholder="your name*"
           style={InputStyle.input}
           onChangeText={name => setName(name)}
