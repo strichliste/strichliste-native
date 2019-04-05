@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Modal, View } from "react-native";
-import { FilterList, FAB } from "../ui/form";
-import { FabBottomRight } from "../ui/base";
+import { FilterList, FAB, Button } from "../ui/form";
+import { FabBottomRight, BaseWrapper } from "../ui/base";
 import { store } from "../../store";
-import { User } from "../../store/reducers";
+import { User, user } from "../../store/reducers";
+import { EditUserForm } from "./add-user-form";
 
 export const SelectUserModal: React.FC<{
   isVisible: boolean;
@@ -35,5 +36,28 @@ export const SelectUserModal: React.FC<{
         />
       </FabBottomRight>
     </Modal>
+  );
+};
+
+export const EditUserModal: React.FC<{ user: User }> = props => {
+  const [isVisible, setIsVisible] = useState(false);
+  const close = () => setIsVisible(false);
+  return (
+    <>
+      <Button isPrimary title="EDIT USER" onPress={() => setIsVisible(true)} />
+      <Modal
+        animationType="slide"
+        visible={isVisible}
+        onRequestClose={() => setIsVisible(false)}
+      >
+        <BaseWrapper>
+          <EditUserForm
+            onSave={_user => close()}
+            user={props.user}
+            onCancel={close}
+          />
+        </BaseWrapper>
+      </Modal>
+    </>
   );
 };

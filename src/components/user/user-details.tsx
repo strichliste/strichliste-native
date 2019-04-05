@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  User,
-  getUser,
-  startLoadingUserDetails,
-  startLoadingTransactions
-} from "../../store/reducers";
+import { User, getUser, startLoadingTransactions } from "../../store/reducers";
 import { store } from "../../store";
 import { View, ScrollView, Text } from "react-native";
 import { UserName } from "../user";
@@ -14,6 +9,8 @@ import { Currency } from "../ui/text";
 import { Payment } from "../transaction/transaction-forms";
 import { TransactionListItem } from "../transaction/transaction-list";
 import { Card } from "../ui/card";
+import { BuyArticleModal } from "../article/article-modals";
+import { EditUserModal } from "./select-user-modal";
 
 const theme = getTheme();
 
@@ -24,7 +21,6 @@ const useUserDetails = (id: string) => {
 
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
-      const user = getUser(store.getState(), id);
       setUser(getUser(store.getState(), id));
     });
 
@@ -66,6 +62,16 @@ export const UserDetails: React.FC<{
       >
         <UserName size={theme.base * 1.5} name={user.name} />
         <Currency size={theme.base * 1.5} value={user.balance} />
+      </View>
+      <View
+        style={{
+          marginBottom: theme.base,
+          justifyContent: "space-evenly",
+          flexDirection: "row"
+        }}
+      >
+        <BuyArticleModal userId={user.id} />
+        <EditUserModal user={user} />
       </View>
       <Payment userId={user.id} />
       <View style={{ marginTop: 16 }}>

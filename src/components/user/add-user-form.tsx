@@ -44,25 +44,25 @@ export const AddUserForm = (props: AddUserProps) => {
   );
 };
 
-interface EditUserProps extends AddUserProps {
-  onDisabled(user: User): void;
+interface EditUserProps {
+  user: User;
+  onSave(user?: User): void;
+  onCancel(): void;
 }
 
 export const EditUserForm = (props: EditUserProps) => {
   const emailRef: any = useRef();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isDisabled, setDisabled] = useState(false);
+  const [name, setName] = useState(props.user.name);
+  const [email, setEmail] = useState(props.user.email || "");
+  const [isDisabled, setDisabled] = useState(props.user.isDisabled || false);
+
   const submit = async (): Promise<void> => {
-    const user = await startUpdateUser(store.dispatch, props.userId, {
+    const user = await startUpdateUser(store.dispatch, props.user.id, {
       name,
       email,
       isDisabled
     });
-    if (user && user.isDisabled) {
-      props.onDisabled(user);
-      return;
-    }
+
     if (user && user.id) {
       props.onSave(user);
     }
@@ -70,7 +70,7 @@ export const EditUserForm = (props: EditUserProps) => {
 
   return (
     <View style={{ margin: 16 }}>
-      <FieldSet label="Your name" message="test">
+      <FieldSet label="Your name">
         <TextInput
           autoFocus
           placeholder="your name*"
@@ -93,7 +93,9 @@ export const EditUserForm = (props: EditUserProps) => {
         onSubmitEditing={submit}
         value={email}
       />
-      <FormFooter onCancel={props.onCancel} submit={submit} />
+      <View style={{ marginTop: 32 }}>
+        <FormFooter onCancel={props.onCancel} submit={submit} />
+      </View>
     </View>
   );
 };
