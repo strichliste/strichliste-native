@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Modal, View } from "react-native";
 import { FilterList, FAB, Button } from "../ui/form";
-import { FabBottomRight } from "../ui/base";
+import { FabBottomRight, Text, BaseWrapper } from "../ui/base";
 import { store } from "../../store";
 import {
   Article,
   startLoadingArticles,
   startCreatingTransaction
 } from "../../store/reducers";
+import { Currency } from "../ui/text";
 
 export const BuyArticleModal: React.FC<{ userId: string }> = props => {
   const [isVisible, setIsVisible] = useState(false);
-  const articles = Object.values(store.getState().article);
+  const articles: Article[] = Object.values(store.getState().article);
 
   useEffect(() => {
     startLoadingArticles(store.dispatch);
@@ -36,9 +37,23 @@ export const BuyArticleModal: React.FC<{ userId: string }> = props => {
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
       >
-        <View style={{ marginTop: 32 }}>
-          <FilterList items={articles} onSelect={onSelect} />
-        </View>
+        <BaseWrapper style={{ marginTop: 32 }}>
+          <FilterList
+            renderItem={article => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between"
+                }}
+              >
+                <Text>{article.name}</Text>
+                <Currency value={article.amount} />
+              </View>
+            )}
+            items={articles}
+            onSelect={onSelect}
+          />
+        </BaseWrapper>
         <FabBottomRight>
           <FAB
             elevation={2}

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal, View } from "react-native";
+import { Modal } from "react-native";
 import { FilterList, FAB, Button } from "../ui/form";
 import { FabBottomRight, BaseWrapper } from "../ui/base";
 import { store } from "../../store";
-import { User, user } from "../../store/reducers";
+import { User } from "../../store/reducers";
 import { EditUserForm } from "./add-user-form";
 
 export const SelectUserModal: React.FC<{
@@ -18,7 +18,7 @@ export const SelectUserModal: React.FC<{
       visible={isVisible}
       onRequestClose={() => setIsVisible(false)}
     >
-      <View style={{ marginTop: 32 }}>
+      <BaseWrapper>
         <FilterList
           items={users}
           onSelect={item => {
@@ -26,7 +26,7 @@ export const SelectUserModal: React.FC<{
             setIsVisible(false);
           }}
         />
-      </View>
+      </BaseWrapper>
       <FabBottomRight>
         <FAB
           elevation={2}

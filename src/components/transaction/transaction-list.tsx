@@ -1,12 +1,12 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import { User, Article, getTransaction } from "../../store/reducers";
 import { store } from "../../store";
 import { Currency } from "../ui/text";
 import { getTheme } from "../ui/theme";
-import { ListItem } from "../ui/base";
+import { ListItem, Text } from "../ui/base";
 
 const theme = getTheme();
 

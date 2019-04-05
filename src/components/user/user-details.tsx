@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { View, ScrollView } from "react-native";
+
 import { User, getUser, startLoadingTransactions } from "../../store/reducers";
 import { store } from "../../store";
-import { View, ScrollView, Text } from "react-native";
 import { UserName } from "../user";
-import { Loader } from "../ui/base";
+import { Loader, Text } from "../ui/base";
 import { getTheme } from "../ui/theme";
 import { Currency } from "../ui/text";
 import { Payment } from "../transaction/transaction-forms";

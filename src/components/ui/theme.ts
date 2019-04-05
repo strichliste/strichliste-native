@@ -36,7 +36,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   ...baseTheme,
-  border: "#f3f4f3",
+  border: "#59687c",
   componentBackgroundDark: "#1d2832",
   componentBackgroundLight: "#2E3D4D",
   green: "#C2FFCD",
@@ -66,5 +66,5 @@ export const darkTheme = {
   defaultFillColor: "#e9ebec"
 };
 
-export const getTheme = (hasDarkMode = false) =>
+export const getTheme = (hasDarkMode = true) =>
   hasDarkMode ? darkTheme : lightTheme;

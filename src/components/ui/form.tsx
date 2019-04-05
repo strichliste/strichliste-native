@@ -3,10 +3,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Ripple from "react-native-material-ripple";
 
 import { getTheme } from "./theme";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import { TextStyle } from "./text";
 import { TextInput } from "react-native-gesture-handler";
-import { ListItem } from "./base";
+import { ListItem, Text } from "./base";
 
 const theme = getTheme();
 
@@ -134,7 +134,9 @@ export const FAB = ({
 export const InputStyle = StyleSheet.create({
   input: {
     backgroundColor: theme.componentBackgroundDark,
-    borderWidth: 1,
+    borderColor: theme.border,
+    borderWidth: 0,
+    color: theme.text,
     borderRadius: theme.borderRadius,
     padding: theme.base * 0.5
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { FlatList, View, Text, Dimensions } from "react-native";
+import { FlatList, View, Dimensions } from "react-native";
 import Ripple from "react-native-material-ripple";
 
 import { store } from "../store";
@@ -7,6 +7,7 @@ import { startLoadingUsers, UsersState, User } from "../store/reducers";
 import { Card } from "./ui/card";
 import { Currency } from "./ui/text";
 import { Button } from "./ui/form";
+import { Text } from "./ui/base";
 
 const CARD_WIDTH = 150;
 

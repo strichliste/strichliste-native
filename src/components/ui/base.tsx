@@ -1,8 +1,18 @@
 import React from "react";
-import { ActivityIndicator, View } from "react-native";
+import {
+  ActivityIndicator,
+  View,
+  Text as NativeText,
+  TextProps
+} from "react-native";
 import { getTheme } from "./theme";
+import { TextStyle } from "./text";
 
 const theme = getTheme();
+
+export const Text: React.FC<TextProps> = ({ style, ...props }) => (
+  <NativeText style={[TextStyle.base, style]} {...props} />
+);
 
 export const FabBottomRight: React.FC = props => (
   <View style={{ position: "absolute", bottom: 16, right: 16 }}>
